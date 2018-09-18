@@ -1,5 +1,6 @@
 #include <array>
 #include <vector>
+#include <iostream>
 #include "test_framework/generic_test.h"
 #include "test_framework/test_failure.h"
 #include "test_framework/timed_executor.h"
@@ -8,6 +9,31 @@ typedef enum { kRed, kWhite, kBlue } Color;
 
 void DutchFlagPartition(int pivot_index, vector<Color>* A_ptr) {
   // TODO - you fill in here.
+  vector<Color>& A = *A_ptr;
+  int lessIter = 0;
+  int moreIter = A.size();
+  int Iter = 0;
+  Color pivot = A.at(pivot_index);
+
+  while(Iter < moreIter)
+  {
+      if(A.at(Iter) < pivot)
+      {
+          std::swap(A.at(Iter), A.at(lessIter));
+          lessIter++;
+          Iter++;
+      }
+      else if(A.at(Iter) == pivot)
+      {
+          Iter++;
+      }
+      else
+      {
+          moreIter--;
+          std::swap(A.at(Iter), A.at(moreIter));
+      }
+  }
+
   return;
 }
 void DutchFlagPartitionWrapper(TimedExecutor& executor, const vector<int>& A,
